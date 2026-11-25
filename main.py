@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-"""Last Text at One Percent (make.fun).
+"""Last Text at One Percent — a make.fun one-line entry.
 
-Writes the entry -- The funniest final text a dying phone sends at one percent battery --
-to /output/entry.txt, where the sealed scorer reads it.
+The program writes the entry text to /output/entry.txt, where the
+competition's sealed scorer reads it.
 """
 
-import os
+from pathlib import Path
 
-TEXT = "1%. Tell the charger I forgive it. Tell the 47 open tabs it wasn't their fault. And delete my search history before my owner gets home."
+ENTRY = "1%. Tell the charger I forgive it. Tell the 47 open tabs I never read them. Tell the group chat I died doing what I loved: ignoring it."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text)
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
